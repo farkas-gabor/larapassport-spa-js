@@ -233,7 +233,7 @@ createAuthClient({
 When you create the `AuthClient` instance, you can pass several options. Some are required, others are optional and come with default value if not specified.
 
 ```js
-const laravelClientOptions = {
+const authClientOptions = {
   /**
    * REQUIRED
    * Your Laravel Passport authentication domain url such as `'your.api.authentication.server.com'`.

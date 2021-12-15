@@ -1,6 +1,6 @@
 {
   "name": "larapassport-spa-js",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Laravel Passport SDK for Single Page Applications using Authorization Code Grant Flow with PKCE",
   "main": "dist/index.js",
   "module": "dist/index.es.js",

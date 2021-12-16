@@ -8,46 +8,58 @@ import {terser} from 'rollup-plugin-terser';
 
 import pkg from './package.json';
 
-const production = !process.env.ROLLUP_WATCH;
-const external = Object.keys(pkg?.peerDependencies || {});
+const EXPORT_NAME = 'createAuthClient';
+const isProduction = process.env.NODE_ENV === 'production';
+const peerDependencies = Object.keys(pkg?.peerDependencies || {});
+const dependencies = Object.keys(pkg?.dependencies || {});
+const external = peerDependencies.concat(dependencies);
 
-const plugins = [
-    eslint({
-        fix: true,
-        throwOnError: true,
-        throwOnWarning: true
-    }),
-    babel({
-        exclude: 'node_modules/**',
-        babelHelpers: 'runtime'
-    }),
-    peerDepsExternal(),
-    resolve({
-        extensions: ['.js', '.json']
-    }),
-    commonjs({
-        include: /node_modules/
-    }),
-    production && terser(),
-    summary()
-];
-
-const config = {
-    input: 'src/index.js',
-    output: [
-        {
-            file: pkg.main,
-            format: 'cjs',
-            sourcemap: !production
-        },
-        {
-            file: pkg.module,
-            format: 'esm',
-            sourcemap: !production
-        }
-    ],
-    plugins,
-    external
+const getPlugins = shouldMinify => {
+    return [
+        eslint({
+            fix: true,
+            throwOnError: true,
+            throwOnWarning: true
+        }),
+        babel({
+            exclude: 'node_modules/**',
+            babelHelpers: 'runtime'
+        }),
+        peerDepsExternal(),
+        resolve({
+            extensions: ['.js', '.json']
+        }),
+        commonjs({
+            include: /node_modules/
+        }),
+        shouldMinify && terser(),
+        summary()
+    ];
 };
 
-export default config;
+const bundles = [
+    {
+        input: 'src/index.cjs.js',
+        output: [
+            {
+                name: EXPORT_NAME,
+                file: pkg.main,
+                format: 'cjs'
+            }
+        ],
+        plugins: getPlugins(false)
+    },
+    {
+        input: 'src/index.js',
+        output: [
+            {
+                file: pkg.module,
+                format: 'esm'
+            }
+        ],
+        plugins: getPlugins(isProduction),
+        external
+    }
+];
+
+export default bundles;

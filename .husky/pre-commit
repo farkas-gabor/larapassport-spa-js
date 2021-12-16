@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️👷 Linting and format-checking your staged files before committing...'
+
+# Run eslint and prettier on the staged files
+npx lint-staged ||
+(
+    echo '😞 Oh, nooo... It looks like you have to fix some errors first! 🤔
+            ESLint check failed. Do your best, fix the issues, add your changes and try to commit again.';
+    false;
+)
+
+# If everything passes... we can commit
+echo '✅ Nice job! Error not found. I am committing your changes now.'

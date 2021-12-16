@@ -1,5 +1,12 @@
 Laravel Passport SDK for Single Page Applications using Authorization Code Grant Flow with PKCE
 
+## [1.0.2](https://github.com/farkas-gabor/larapassport-spa-js/compare/v1.0.1...v1.0.2) (2021-12-16)
+
+
+### Bug Fixes
+
+* updating Rollup bundle configs with Babel, introducing UMD bundle ([651efb8](https://github.com/farkas-gabor/larapassport-spa-js/commit/651efb89691a3dc364b26dc0dfd624f99b405a80))
+
 ## [1.0.1](https://github.com/farkas-gabor/larapassport-spa-js/compare/v1.0.0...v1.0.1) (2021-12-16)
 
 

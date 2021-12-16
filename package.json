@@ -2,14 +2,14 @@
   "name": "larapassport-spa-js",
   "version": "1.0.0",
   "description": "Laravel Passport SDK for Single Page Applications using Authorization Code Grant Flow with PKCE",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "dist/lib/larapassport-spa-js.cjs.js",
+  "module": "dist/larapassport-spa-js.esm.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "build:watch": "rollup -c -w",
+    "build": "rimraf dist && rollup -c -m --environment NODE_ENV:production",
+    "build:watch": "rimraf dist && rollup -c -w",
     "lint": "eslint --fix ./src/**/*.{js,jsx,ts,tsx}",
     "test": "npm run clean && jest -c jest.config.js --coverage",
     "test:watch": "npm run clean && jest -c jest.config.js -w --coverage",
@@ -75,6 +75,7 @@
     "eslint-plugin-sonarjs": "^0.11.0",
     "jest": "^27.4.5",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "rollup": "^2.61.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-summary": "^1.3.0",
